@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "playwright-browser": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-playwright"
+      ],
+      "env": {
+        "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "0"
+      }
+    }
+  }
+}
