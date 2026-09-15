@@ -124,10 +124,15 @@ export const UnifiedBookingContactSection: React.FC<UnifiedBookingContactSection
   const selectedService = SERVICES.find(s => s.id === bookingData.serviceId) || SERVICES[0]
 
   return (
-    <section id="contact-booking" className="py-20 sm:py-28 bg-white border-t border-slate-200/70 scroll-mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact-booking" className="py-20 sm:py-28 bg-white text-slate-900 border-t border-slate-200/80 scroll-mt-20 relative overflow-hidden">
+      {/* Subtle, low-opacity wavy vector line pattern overlay */}
+      <div 
+        className="absolute inset-0 bg-subtle-wavy-lines pointer-events-none opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_90%)]" 
+        aria-hidden="true" 
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading
-          eyebrow="Appointment & Contact"
           title="Schedule Your Home Visit"
           subtitle="Fast-track clinical triage. Complete the appointment request below or contact our physiotherapists directly."
           align="center"

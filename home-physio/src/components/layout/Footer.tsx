@@ -1,8 +1,7 @@
 import React from 'react'
-import { Stethoscope, Phone, Mail, MapPin, ShieldCheck, ArrowRight, Clock, Calendar } from 'lucide-react'
+import { Stethoscope, Phone, Mail, MapPin, ShieldCheck, ArrowRight, Clock } from 'lucide-react'
 import { SITE_CONFIG } from '../../data/site'
 import { SERVICES } from '../../data/services'
-import { Button } from '../ui/Button'
 
 interface FooterProps {
   onNavigate?: (path: string) => void
@@ -24,47 +23,6 @@ export const Footer: React.FC<FooterProps> = () => {
 
   return (
     <footer className="bg-slate-950 text-slate-400">
-      {/* CTA Band */}
-      <div className="border-b border-slate-800/80 bg-slate-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
-            <div className="max-w-xl">
-              <div className="flex items-center gap-2 mb-3 justify-center lg:justify-start">
-                <span className="h-px w-4 bg-teal-600/50" />
-                <span className="text-[10px] font-semibold tracking-[0.12em] uppercase text-teal-500">Start your recovery today</span>
-              </div>
-              <h3
-                className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight"
-                style={{ fontFamily: 'Manrope, sans-serif' }}
-              >
-                Ready for professional physiotherapy at home?
-              </h3>
-              <p className="mt-2 text-[15px] text-slate-400 leading-relaxed">
-                No travel, no waiting rooms. Book an initial home assessment or send a direct enquiry.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={() => scrollTo('#contact-booking')}
-                icon={<Calendar className="w-4 h-4" />}
-              >
-                Book Appointment
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => scrollTo('#contact-booking')}
-                className="border-slate-600 text-slate-300 hover:text-white hover:border-slate-400 hover:bg-slate-800"
-              >
-                Direct Enquiry
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main footer grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10">

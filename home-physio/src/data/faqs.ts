@@ -40,7 +40,7 @@ export const FAQS_DATA: FAQItem[] = [
     id: "faq-6",
     category: "Home Visits",
     question: "Which geographical areas and postcodes do you cover?",
-    answer: "We provide regular home visits throughout [Primary Town/City] and surrounding areas within an approximate 15-mile radius. You can check your postcode using our interactive Area Checker on the Areas page or contact us directly to confirm coverage."
+    answer: "We provide regular home visits throughout Richmond, Kingston, Wimbledon, and surrounding areas within an approximate 15-mile radius. You can check your postcode using our interactive Area Checker on the Areas page or contact us directly to confirm coverage."
   },
   {
     id: "faq-7",

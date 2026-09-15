@@ -43,6 +43,13 @@ export const SpecialistsSection: React.FC<SpecialistsSectionProps> = ({ onSelect
                   alt={specialist.name}
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
+                  onError={(e) => {
+                    // Fallback to a reliable clinical photo if network or remote link drops
+                    const target = e.target as HTMLImageElement
+                    if (!target.src.includes('photo-1559839734-2b71ea197ec2')) {
+                      target.src = 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=700&q=80'
+                    }
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
                 

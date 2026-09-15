@@ -54,11 +54,6 @@ export const Accordion: React.FC<AccordionProps> = ({
             >
               <div className="flex items-center gap-3">
                 <span className="text-base sm:text-lg text-slate-900 font-medium">{item.title}</span>
-                {item.badge && (
-                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200/60 font-medium">
-                    {item.badge}
-                  </span>
-                )}
               </div>
               <ChevronDown
                 className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${

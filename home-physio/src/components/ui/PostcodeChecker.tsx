@@ -30,7 +30,7 @@ export const PostcodeChecker: React.FC<PostcodeCheckerProps> = ({
       const code = inputCode.trim().toUpperCase()
       setIsSearching(false)
 
-      if (code.startsWith('AB1') || code.startsWith('AB2') || code.startsWith('SW') || code.startsWith('W1') || code.includes('TOWN') || code.includes('CENTRAL')) {
+      if (code.startsWith('TW') || code.startsWith('KT') || code.startsWith('SW') || code.startsWith('W') || code.includes('RICHMOND') || code.includes('KINGSTON') || code.includes('WIMBLEDON')) {
         setResult({
           status: 'covered',
           title: `Direct Coverage in ${code}`,
@@ -38,27 +38,27 @@ export const PostcodeChecker: React.FC<PostcodeCheckerProps> = ({
           zone: 'Zone 1 (Core Service Area)',
           travelNote: 'Standard travel is fully included in the session fee.'
         })
-      } else if (code.startsWith('AB') || code.startsWith('E') || code.startsWith('N') || code.includes('SURROUND') || code.includes('VILLAGE')) {
+      } else if (code.startsWith('SM') || code.startsWith('CR') || code.startsWith('UB') || code.includes('SURREY') || code.includes('EPSOM')) {
         setResult({
           status: 'outer',
           title: `Covered with Coordinated Scheduling (${code})`,
           message: 'Great news! We regularly visit your area on designated weekday routes.',
-          zone: 'Zone 2 (Outer Suburb / Borough)',
+          zone: 'Zone 2 (Outer Borough / Greater London)',
           travelNote: 'Standard travel included. Weekend visits subject to confirmation.'
         })
       } else {
         setResult({
           status: 'unconfirmed',
-          title: `Demo Postcode Verification for ${code}`,
-          message: 'In this client demo, all simulated UK postcodes can be configured for your exact clinical territory.',
-          zone: 'Configurable Service Zone',
-          travelNote: 'Travel fees and coverage boundary are easily customized in site data.'
+          title: `Postcode Inquiry for ${code}`,
+          message: 'We provide home visits across South West London & Surrey. Contact our triage team to confirm a slot for your postcode.',
+          zone: 'Custom Service Area',
+          travelNote: 'Travel fees and coverage availability will be verified during initial triage.'
         })
       }
     }, 350)
   }
 
-  const quickSamples = ['[AB1 Central]', '[AB12 Outer]', '[AB21 Village]']
+  const quickSamples = ['TW9 Richmond', 'KT1 Kingston', 'SW19 Wimbledon', 'SW13 Barnes', 'SW15 Putney']
 
   return (
     <div className={`bg-white rounded-3xl border border-teal-100 shadow-sm p-6 sm:p-8 ${className}`}>

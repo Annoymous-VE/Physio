@@ -8,15 +8,15 @@ export interface CoverageZone {
 }
 
 export const COVERAGE_DATA = {
-  primaryCity: "[Primary Town/City]",
-  subtitle: "Delivering one-to-one home physiotherapy across [Primary Town/City] and neighboring communities.",
-  disclaimer: "Areas listed below are placeholder examples. Client can customize specific towns and postcode districts.",
+  primaryCity: "Richmond upon Thames",
+  subtitle: "Delivering one-to-one home physiotherapy across Richmond, Kingston, Wimbledon, and neighboring communities.",
+  disclaimer: "Covering all surrounding boroughs across South West London & Surrey.",
   zones: [
     {
       zone: "Zone 1",
       name: "Primary Central Area",
       description: "Direct service coverage within central and immediate urban districts.",
-      postcodes: ["[AB1]", "[AB2]", "[AB3]", "[AB4]", "[AB5]"],
+      postcodes: ["TW9", "TW10", "KT1", "KT2", "SW19"],
       travelFee: "Standard travel included (No extra fee)",
       features: [
         "Priority morning & afternoon booking slots",
@@ -28,8 +28,8 @@ export const COVERAGE_DATA = {
       zone: "Zone 2",
       name: "Outer Boroughs & Surrounding Villages",
       description: "Suburban towns and communities within an approximate 10–15 mile radius.",
-      postcodes: ["[AB10]", "[AB11]", "[AB12]", "[AB20]", "[AB21]"],
-      travelFee: "Standard travel included (or nominal fee depending on exact distance)",
+      postcodes: ["SW13", "SW14", "SW15", "TW1", "KT3"],
+      travelFee: "Standard travel included",
       features: [
         "Flexible weekday visiting times",
         "Coordinated travel routes to minimize waiting times",
@@ -39,9 +39,9 @@ export const COVERAGE_DATA = {
     {
       zone: "Zone 3",
       name: "Extended Regional Radius",
-      description: "Rural or outer regional areas beyond standard 15-mile operating zone.",
-      postcodes: ["[AB30+]", "[Surrounding Region]"],
-      travelFee: "Small travel contribution (£X/mile beyond radius)",
+      description: "Outer regional areas beyond standard 15-mile operating zone.",
+      postcodes: ["KT6+", "SM1+", "CR0+"],
+      travelFee: "Nominal travel contribution for extended routes",
       features: [
         "Subject to clinician availability & scheduling",
         "Ideal for extended 90-min comprehensive sessions",
@@ -50,13 +50,13 @@ export const COVERAGE_DATA = {
     }
   ] as CoverageZone[],
   sampleLocations: [
-    "[Central District]",
-    "[North Suburb]",
-    "[South Suburb]",
-    "[East Town]",
-    "[West Village]",
-    "[Surrounding Valley]",
-    "[Riverside District]",
-    "[Hillside Area]"
+    "Richmond",
+    "Kingston",
+    "Wimbledon",
+    "Barnes",
+    "Putney",
+    "Chiswick",
+    "Kew",
+    "Epsom"
   ]
 }

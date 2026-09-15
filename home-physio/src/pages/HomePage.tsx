@@ -14,22 +14,18 @@ import {
   Brain,
   Trophy,
   Footprints,
-  Star,
   PhoneCall,
-  Search,
-  Quote,
-  Sparkles,
-  HelpCircle
+  Sparkles
 } from 'lucide-react'
 import { SITE_CONFIG } from '../data/site'
 import { SERVICES, type ServiceItem } from '../data/services'
-import { TESTIMONIALS_DATA } from '../data/testimonials'
 import { FAQS_DATA } from '../data/faqs'
 import { Button } from '../components/ui/Button'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import { PostcodeChecker } from '../components/ui/PostcodeChecker'
 import { Accordion } from '../components/ui/Accordion'
 import { SpecialistsSection } from '../components/sections/SpecialistsSection'
+import { TestimonialsSection } from '../components/sections/TestimonialsSection'
 import { UnifiedBookingContactSection } from '../components/sections/UnifiedBookingContactSection'
 
 const serviceIconMap: Record<string, React.ReactNode> = {
@@ -98,10 +94,6 @@ export const HomePage: React.FC = () => {
   const [preferredSpecialist, setPreferredSpecialist] = useState<string>('')
   const [serviceFilter, setServiceFilter] = useState<string>('all')
   
-  // FAQ state
-  const [faqSearch, setFaqSearch] = useState('')
-  const [faqCategory, setFaqCategory] = useState<string>('All')
-
   const scrollTo = (hash: string) => {
     if (hash.startsWith('#')) {
       const id = hash.slice(1)
@@ -134,20 +126,10 @@ export const HomePage: React.FC = () => {
     return true
   })
 
-  // FAQ filtering
-  const faqCategories = ['All', 'Home Visits', 'Preparation', 'Appointments & Pricing', 'Clinical & Safety']
-  const filteredFaqs = FAQS_DATA.filter((faq) => {
-    const matchesCategory = faqCategory === 'All' || faq.category === faqCategory
-    const matchesSearch =
-      faq.question.toLowerCase().includes(faqSearch.toLowerCase()) ||
-      faq.answer.toLowerCase().includes(faqSearch.toLowerCase())
-    return matchesCategory && matchesSearch
-  })
-
-  const accordionItems = filteredFaqs.map((faq) => ({
+  // First 4 FAQs for the compact split section
+  const faqItems = FAQS_DATA.slice(0, 4).map((faq) => ({
     id: faq.id,
     title: faq.question,
-    badge: faq.category,
     content: (
       <p className="text-[14.5px] text-slate-600 leading-relaxed">{faq.answer}</p>
     ),
@@ -167,14 +149,6 @@ export const HomePage: React.FC = () => {
 
             {/* LEFT: Content */}
             <div className="lg:col-span-6 space-y-7 text-center lg:text-left">
-              {/* Eyebrow */}
-              <div className="flex items-center gap-3 justify-center lg:justify-start">
-                <span className="h-px w-8 bg-teal-600/60" />
-                <span className="text-[11px] font-bold tracking-[0.12em] uppercase text-teal-700">
-                  UK Private Home-Visit Physiotherapy
-                </span>
-              </div>
-
               {/* Headline */}
               <h1
                 className="text-[2.5rem] sm:text-[3.25rem] lg:text-[3.85rem] font-extrabold text-slate-900 leading-[1.05] tracking-tight"
@@ -283,10 +257,21 @@ export const HomePage: React.FC = () => {
       {/* ============================================================
           2. ABOUT / WHY CHOOSE US
       ============================================================ */}
-      <section id="about" className="bg-slate-50/80 py-20 sm:py-28 border-t border-slate-200/70 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="about" className="bg-slate-900 text-white py-20 sm:py-28 border-t border-slate-800/80 scroll-mt-20 relative overflow-hidden">
+        {/* Ambient subtle glow orbs */}
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Subtle geometric dot and sparse cross overlay with CSS mask gradient */}
+        <div 
+          className="absolute inset-0 bg-dot-cross-pattern pointer-events-none opacity-20 [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]" 
+          aria-hidden="true" 
+        />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
           <SectionHeading
+            light
             eyebrow="Why Choose Us"
             title="Clinical Excellence, Directly In Your Home"
             subtitle="Eliminate the strain of travelling to a hospital or clinic. We assess your movement where it matters most: your daily life."
@@ -298,26 +283,26 @@ export const HomePage: React.FC = () => {
             {trustItems.map((item, i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow duration-200 flex flex-col justify-between"
+                className="bg-slate-950/70 rounded-2xl p-6 border border-slate-800 shadow-sm hover:border-slate-700 transition-colors duration-200 flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-11 h-11 rounded-xl bg-teal-50 flex items-center justify-center mb-4 text-teal-700">
+                  <div className="w-11 h-11 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center mb-4 text-teal-400">
                     {item.icon}
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-2">{item.title}</h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+                  <h3 className="text-base font-bold text-white mb-2">{item.title}</h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Editorial Clinical Portrait & Philosophy */}
-          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm">
+          <div className="bg-slate-950/80 rounded-3xl p-8 sm:p-12 border border-slate-800 shadow-xl">
             <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
               
               {/* Portrait */}
               <div className="lg:col-span-5 relative">
-                <div className="rounded-2xl overflow-hidden shadow-lg aspect-[3/4] bg-slate-100">
+                <div className="rounded-2xl overflow-hidden shadow-2xl aspect-[3/4] bg-slate-900 border border-slate-800">
                   <img
                     src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80"
                     alt="Lead Chartered Physiotherapist in clinical uniform"
@@ -325,47 +310,42 @@ export const HomePage: React.FC = () => {
                     loading="lazy"
                   />
                 </div>
-                <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3.5 shadow-md border border-slate-100 text-xs">
-                  <p className="font-bold text-slate-900">Dr. Eleanor Vance</p>
-                  <p className="text-teal-700 font-medium">Lead Chartered Physiotherapist · MCSP, HCPC</p>
+                <div className="absolute bottom-4 left-4 right-4 bg-slate-900/95 backdrop-blur-md rounded-xl p-3.5 shadow-lg border border-slate-700 text-xs">
+                  <p className="font-bold text-white">Dr. Eleanor Vance</p>
+                  <p className="text-teal-400 font-medium">Lead Chartered Physiotherapist · MCSP, HCPC</p>
                 </div>
               </div>
 
               {/* Bio details */}
               <div className="lg:col-span-7 space-y-5">
-                <div className="flex items-center gap-2">
-                  <span className="h-px w-5 bg-teal-600/50" />
-                  <span className="text-[11px] font-bold tracking-[0.1em] uppercase text-teal-700">Clinical Philosophy</span>
-                </div>
-
                 <h3
-                  className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight leading-tight"
+                  className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight"
                   style={{ fontFamily: 'Manrope, sans-serif' }}
                 >
                   "Rehabilitation tailored around your life, your home and your personal recovery goals."
                 </h3>
 
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
                   With over 12 years of clinical practice across NHS hospital trusts and private musculoskeletal centres, our team founded HomePhysio to solve a critical healthcare challenge: patients recovering from surgeries, severe back spasms, or elderly frailty often find travelling to a clinic physically exhausting and stressful.
                 </p>
 
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
                   By visiting you directly, we eliminate commute strain and evaluate how you move in your genuine everyday setting — your stairs, your favourite armchair, bed transfers, and garden steps.
                 </p>
 
                 {/* Key stats row */}
-                <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-100 text-center sm:text-left">
+                <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800 text-center sm:text-left">
                   <div>
-                    <span className="block text-2xl sm:text-3xl font-extrabold text-teal-800">100%</span>
-                    <span className="text-xs text-slate-500 font-medium">Home-Focused</span>
+                    <span className="block text-2xl sm:text-3xl font-extrabold text-teal-400">100%</span>
+                    <span className="text-xs text-slate-400 font-medium">Home-Focused</span>
                   </div>
                   <div>
-                    <span className="block text-2xl sm:text-3xl font-extrabold text-teal-800">12+</span>
-                    <span className="text-xs text-slate-500 font-medium">Years Experience</span>
+                    <span className="block text-2xl sm:text-3xl font-extrabold text-teal-400">12+</span>
+                    <span className="text-xs text-slate-400 font-medium">Years Experience</span>
                   </div>
                   <div>
-                    <span className="block text-2xl sm:text-3xl font-extrabold text-teal-800">60 Min</span>
-                    <span className="text-xs text-slate-500 font-medium">Dedicated Visits</span>
+                    <span className="block text-2xl sm:text-3xl font-extrabold text-teal-400">60 Min</span>
+                    <span className="text-xs text-slate-400 font-medium">Dedicated Visits</span>
                   </div>
                 </div>
 
@@ -379,11 +359,12 @@ export const HomePage: React.FC = () => {
                     Request Initial Assessment
                   </Button>
                   <Button
-                    variant="outline"
+                    variant="ghost"
                     size="md"
                     onClick={() => scrollTo('#specialists')}
                     icon={<ArrowRight className="w-4 h-4" />}
                     iconPosition="right"
+                    className="border border-slate-700 text-white hover:bg-slate-800 hover:text-white"
                   >
                     Meet Clinical Specialists
                   </Button>
@@ -490,10 +471,15 @@ export const HomePage: React.FC = () => {
       {/* ============================================================
           4. HOW IT WORKS
       ============================================================ */}
-      <section id="how-it-works" className="py-20 sm:py-28 bg-slate-50/80 border-t border-slate-200/70 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="how-it-works" className="py-20 sm:py-28 bg-slate-900 text-white border-t border-slate-800/80 scroll-mt-20 relative overflow-hidden">
+        {/* Ambient background accents */}
+        <div className="absolute top-1/3 left-10 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
           <SectionHeading
+            light
             eyebrow="Simple & Transparent"
             title="How Home-Visit Physiotherapy Works"
             subtitle="From your initial triage enquiry to a fully tailored recovery roadmap — four clear, stress-free steps."
@@ -505,22 +491,22 @@ export const HomePage: React.FC = () => {
             {processSteps.map((step, i) => (
               <div
                 key={i}
-                className="bg-white rounded-3xl p-7 border border-slate-200 shadow-xs relative flex flex-col justify-between group hover:shadow-md transition-shadow"
+                className="bg-slate-950/70 rounded-3xl p-7 border border-slate-800 shadow-xl relative flex flex-col justify-between group hover:border-teal-500/40 hover:bg-slate-950/90 transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    <span className="w-10 h-10 rounded-2xl bg-teal-800 text-white font-extrabold text-sm flex items-center justify-center shadow-xs">
+                    <span className="w-10 h-10 rounded-2xl bg-teal-500 text-slate-950 font-extrabold text-sm flex items-center justify-center shadow-md">
                       {step.num}
                     </span>
-                    <span className="text-[11px] font-bold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full">
+                    <span className="text-[11px] font-bold text-teal-300 bg-teal-950/80 border border-teal-800 px-2.5 py-1 rounded-full">
                       {step.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-slate-900 mb-2">
+                  <h3 className="text-base font-bold text-white mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                     {step.desc}
                   </p>
                 </div>
@@ -529,14 +515,14 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Preparation Guidance Card */}
-          <div className="mt-12 bg-white rounded-3xl p-8 border border-slate-200/80 shadow-xs">
+          <div className="mt-12 bg-slate-950/70 rounded-3xl p-8 border border-slate-800 shadow-xl">
             <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
               <div className="space-y-1">
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-800 bg-teal-50 px-3 py-1 rounded-full mb-1">
-                  <Sparkles className="w-3.5 h-3.5" /> What to Prepare
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-300 bg-teal-950/80 border border-teal-800 px-3 py-1 rounded-full mb-1">
+                  <Sparkles className="w-3.5 h-3.5 text-teal-400" /> What to Prepare
                 </span>
-                <h4 className="text-lg font-bold text-slate-900">Preparing for your physiotherapist's arrival</h4>
-                <p className="text-xs sm:text-sm text-slate-500 max-w-2xl">
+                <h4 className="text-lg font-bold text-white">Preparing for your physiotherapist's arrival</h4>
+                <p className="text-xs sm:text-sm text-slate-400 max-w-2xl">
                   You do not need a huge clinic space! A clear floor area of roughly 2m x 2m in your living room or bedroom is plenty. Wear comfortable loose clothing and keep any hospital discharge letters or medication lists handy.
                 </p>
               </div>
@@ -545,7 +531,7 @@ export const HomePage: React.FC = () => {
                 size="md"
                 onClick={() => scrollTo('#contact-booking')}
                 icon={<Calendar className="w-4 h-4" />}
-                className="shrink-0"
+                className="shrink-0 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold shadow-md shadow-teal-950 cursor-pointer"
               >
                 Book Your Assessment
               </Button>
@@ -561,126 +547,38 @@ export const HomePage: React.FC = () => {
       <SpecialistsSection onSelectSpecialist={handleSelectSpecialist} />
 
       {/* ============================================================
-          6. TESTIMONIALS
+          6. TESTIMONIALS (AUTO-SLIDING LEFT TO RIGHT)
       ============================================================ */}
-      <section id="testimonials" className="py-20 sm:py-28 bg-slate-950 text-white scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <SectionHeading
-            light
-            eyebrow="Patient Stories"
-            title="Real-World Rehabilitation Outcomes"
-            subtitle="Demonstration patient testimonials reflecting genuine home recovery journeys."
-            align="center"
-          />
+      <TestimonialsSection />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14">
-            {TESTIMONIALS_DATA.map((t) => (
-              <div
-                key={t.id}
-                className="bg-white/[0.04] rounded-3xl p-8 border border-white/10 flex flex-col justify-between hover:bg-white/[0.07] transition-colors duration-300"
-              >
-                <div className="space-y-4">
-                  {/* Star rating */}
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(t.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-
-                  <Quote className="w-7 h-7 text-teal-400/40" />
-
-                  <p className="text-sm text-slate-200 italic leading-relaxed">
-                    "{t.quote}"
-                  </p>
-                </div>
-
-                <div className="pt-6 mt-6 border-t border-white/10">
-                  <p className="font-bold text-white text-sm">{t.clientName}</p>
-                  <p className="text-xs text-teal-400 font-semibold mt-0.5">{t.conditionType}</p>
-                  <p className="text-xs text-slate-400 mt-0.5">{t.location}</p>
-                  <p className="mt-3 text-[10px] text-slate-400 italic">
-                    ℹ {t.isSampleDisclaimer}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <Button
-              variant="outline"
-              size="md"
-              onClick={() => scrollTo('#contact-booking')}
-              className="border-teal-500/40 text-teal-200 hover:bg-teal-900/40"
-            >
-              Start Your Own Recovery Journey
-            </Button>
-          </div>
-
-        </div>
-      </section>
 
       {/* ============================================================
-          7. FAQ
+          7. FAQ — 2-COLUMN SPLIT WITH EXACT 4 QUESTIONS
       ============================================================ */}
       <section id="faq" className="py-20 sm:py-28 bg-slate-50/80 border-t border-slate-200/70 scroll-mt-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <SectionHeading
-            eyebrow="Common Inquiries"
-            title="Frequently Asked Questions"
-            subtitle="Everything you need to know about booking, treatment couches, clothing, pricing, and clinical safety."
-            align="center"
-          />
-
-          {/* FAQ Search Bar */}
-          <div className="mt-8 max-w-xl mx-auto relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={faqSearch}
-              onChange={(e) => setFaqSearch(e.target.value)}
-              placeholder="Search questions (e.g. couch, clothes, insurance, doctor referral)..."
-              className="w-full pl-11 pr-4 py-3 rounded-2xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600 shadow-xs"
-            />
-          </div>
-
-          {/* Category Tabs */}
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-2 mb-10">
-            {faqCategories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setFaqCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer ${
-                  faqCategory === cat
-                    ? 'bg-teal-800 text-white shadow-xs'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-                }`}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+            
+            {/* Left Side: Heading & Description */}
+            <div className="lg:col-span-5 space-y-4 text-left">
+              <h2
+                className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight"
+                style={{ fontFamily: 'Manrope, sans-serif' }}
               >
-                {cat}
-              </button>
-            ))}
-          </div>
+                Frequently Asked Questions
+              </h2>
 
-          {/* Accordion List */}
-          {accordionItems.length > 0 ? (
-            <Accordion items={accordionItems} allowMultiple defaultOpenId="faq-1" />
-          ) : (
-            <div className="text-center py-12 bg-white rounded-2xl border border-slate-200">
-              <HelpCircle className="w-9 h-9 text-slate-300 mx-auto mb-2" />
-              <p className="text-sm font-bold text-slate-800">No questions found</p>
-              <button
-                type="button"
-                onClick={() => { setFaqSearch(''); setFaqCategory('All') }}
-                className="mt-2 text-xs font-semibold text-teal-700 hover:underline"
-              >
-                Reset filter
-              </button>
+              <p className="text-base text-slate-600 leading-relaxed pt-1">
+                Everything you need to know about booking, treatment couches, clothing, pricing, and clinical safety.
+              </p>
             </div>
-          )}
 
+            {/* Right Side: Accordion with exactly 4 questions */}
+            <div className="lg:col-span-7">
+              <Accordion items={faqItems} allowMultiple defaultOpenId="faq-1" />
+            </div>
+
+          </div>
         </div>
       </section>
 

@@ -52,23 +52,23 @@ export const SITE_CONFIG: SiteConfig = {
   name: "HomePhysio",
   tagline: "Professional Physiotherapy, Delivered to Your Door",
   subtitle: "Specialist home-visit physiotherapy and rehabilitation in the comfort, privacy, and convenience of your own home.",
-  description: "Independent Chartered Physiotherapist providing tailored assessment, musculoskeletal treatment, post-operative rehabilitation, and mobility care across [Primary Town/City] and surrounding areas.",
-  phone: "0800 [PHONE NUMBER]",
-  email: "contact@[yourpractice].co.uk",
+  description: "Independent Chartered Physiotherapist providing tailored assessment, musculoskeletal treatment, post-operative rehabilitation, and mobility care across London, Richmond, Kingston, and surrounding areas.",
+  phone: "0800 123 4567",
+  email: "care@homephysio.co.uk",
   operatingHours: {
     weekdays: "Monday – Friday: 08:00 – 19:30",
     saturdays: "Saturday: 09:00 – 14:00",
     sundays: "Sunday & Bank Holidays: Closed (Emergency Advice: NHS 111)",
     emergencyNote: "If you experience sudden severe numbness, loss of bladder/bowel control, or chest pain, please call 999 or attend A&E immediately."
   },
-  primaryLocation: "[Primary Town/City]",
-  serviceRadius: "Approx. 15-mile radius (surrounding postcodes covered)",
+  primaryLocation: "Richmond, Surrey",
+  serviceRadius: "Approx. 15-mile radius (SW London & Surrey covered)",
   credentials: {
-    hcpc: "HCPC Registered [Reg No. Placeholder]",
+    hcpc: "HCPC Registered",
     csp: "Chartered Society of Physiotherapy (CSP) Member",
     dbs: "Enhanced DBS Checked & Fully Insured",
-    degree: "BSc (Hons) Physiotherapy [University Placeholder]",
-    experienceYears: "10+ Years NHS & Private Clinical Experience [Placeholder]"
+    degree: "BSc (Hons) Physiotherapy",
+    experienceYears: "10+ Years NHS & Private Clinical Experience"
   },
   navLinks: [
     { label: "Home", href: "#hero" },
@@ -125,7 +125,7 @@ export const SPECIALISTS: Specialist[] = [
     experience: "8+ Years Elite Sports & Orthopaedic Clinics",
     specialties: ["ACL & Knee Reconstruction Rehab", "Shoulder Impingement & Rotator Cuff", "Manual Therapy & Soft Tissue"],
     bio: "Sophie blends progressive strength conditioning with hands-on manual techniques. She works with active individuals recovering from tendon injuries, fracture fixations, and joint replacements.",
-    imageUrl: "https://images.unsplash.com/photo-1594824813589-3221bf584126?auto=format&fit=crop&w=700&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=700&q=80",
     quote: "We don't just aim for pain relief; we build long-term joint resilience and athletic function."
   }
 ]
